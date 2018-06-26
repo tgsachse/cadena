@@ -9,12 +9,12 @@ class Node {
         Node(char, Node* = NULL, Node* = NULL);
 };
 
-// LinkedList class for dynamically storing strings of arbitrary length.
-class LinkedList {
+// Cadena class for dynamically storing strings of arbitrary length.
+class Cadena {
     public:
-        LinkedList(void);
-        LinkedList(char);
-        LinkedList(const std::string&);
+        Cadena(void);
+        Cadena(char);
+        Cadena(const std::string&);
         int getLength(void) const;
         Node* getHead(void) const;
         void prepend(char);
@@ -23,7 +23,7 @@ class LinkedList {
         void append(const std::string&);
         void insert(const std::string&, int);
         char& operator[](int);
-        ~LinkedList(void);
+        ~Cadena(void);
 
     private:
         int length;
@@ -36,4 +36,4 @@ class LinkedList {
         Node* findTail(Node*);
 };
 
-std::ostream& operator<<(std::ostream&, const LinkedList&);
+std::ostream& operator<<(std::ostream&, const Cadena&);

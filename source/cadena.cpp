@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinkedList.h"
+#include "cadena.h"
 
 // Node constructor that initializes data, next, and prev.
 Node::Node(char data, Node* next, Node* prev) {
@@ -9,12 +9,12 @@ Node::Node(char data, Node* next, Node* prev) {
 }
 
 // Constructor for an empty linked list.
-LinkedList::LinkedList(void) {
+Cadena::Cadena(void) {
     initializeMembers();
 }
 
 // Constructor for a linked list with an initial node.
-LinkedList::LinkedList(char data) {
+Cadena::Cadena(char data) {
     initializeMembers();
 
     // Convert the char to a string and pass to the insert function.
@@ -23,45 +23,45 @@ LinkedList::LinkedList(char data) {
 }
 
 // Constructor for a linked list with several nodes, pulled from data.
-LinkedList::LinkedList(const std::string& data) {
+Cadena::Cadena(const std::string& data) {
     initializeMembers();
     insert(data, 0);
 }
 
 // Return the length of the linked list.
-int LinkedList::getLength(void) const {
+int Cadena::getLength(void) const {
     return length;
 }
 
 // Return the head of the linked list.
-Node* LinkedList::getHead(void) const {
+Node* Cadena::getHead(void) const {
     return head;
 }
 
 // Insert character at the beginning of the list.
-void LinkedList::prepend(char data) {
+void Cadena::prepend(char data) {
     std::string str(1, data);
     insert(str, 0);
 }
 
 // Insert string at the beginning of the list.
-void LinkedList::prepend(const std::string& data) {
+void Cadena::prepend(const std::string& data) {
     insert(data, 0);
 }
 
 // Insert character at the end of the list.
-void LinkedList::append(char data) {
+void Cadena::append(char data) {
     std::string str(1, data);
     insert(str, length);
 }
 
 // Insert string at the end of the list.
-void LinkedList::append(const std::string& data) {
+void Cadena::append(const std::string& data) {
     insert(data, length);
 }
 
 // Insert a string into the list at the given index.
-void LinkedList::insert(const std::string& data, int index) {
+void Cadena::insert(const std::string& data, int index) {
     // If attempting to index in reverse (with negatives), then adjust
     // the index to the correct position. -1 results in an index at the
     // very end of the list in this implementation.
@@ -96,14 +96,14 @@ void LinkedList::insert(const std::string& data, int index) {
 }
 
 // Initialize members of new list.
-void LinkedList::initializeMembers(void) {
+void Cadena::initializeMembers(void) {
     head = NULL;
     tail = NULL;
     length = 0;
 }
 
 // Get node at index in list.
-Node* LinkedList::getNode(int index) const {
+Node* Cadena::getNode(int index) const {
     Node *current;
   
     if (head == NULL || tail == NULL) {
@@ -136,7 +136,7 @@ Node* LinkedList::getNode(int index) const {
 }
 
 // Generate a mini-list of nodes and return a pointer to the start.
-Node* LinkedList::generateNodes(const std::string& data, Node* next) {
+Node* Cadena::generateNodes(const std::string& data, Node* next) {
     Node* start = new Node(data[0]);
     
     Node* current = start;
@@ -154,7 +154,7 @@ Node* LinkedList::generateNodes(const std::string& data, Node* next) {
 }
 
 // Hunt down the tail of the list. I realize this isn't optimal.
-Node* LinkedList::findTail(Node* start) {
+Node* Cadena::findTail(Node* start) {
     if (start == NULL) {
         throw std::runtime_error("Null pointer exception in findTail().");
     }
@@ -169,7 +169,7 @@ Node* LinkedList::findTail(Node* start) {
 }
 
 // Allow [bracketed] indexing of list.
-char& LinkedList::operator[](int index) {
+char& Cadena::operator[](int index) {
     // Adjust negative index to corresponding positive index.
     if (index < 0) {
         index += length + 1;
@@ -179,7 +179,7 @@ char& LinkedList::operator[](int index) {
 }
 
 // Deconstructor of a linked list that destroys all the nodes in the list.
-LinkedList::~LinkedList(void) {
+Cadena::~Cadena(void) {
     Node* next;
 
     // Iterate through all the nodes, deleting them along the way.
@@ -192,7 +192,7 @@ LinkedList::~LinkedList(void) {
 }
 
 // Allow lists to be printed in a standard way.
-std::ostream& operator<<(std::ostream& stream, const LinkedList& list) {
+std::ostream& operator<<(std::ostream& stream, const Cadena& list) {
     Node* current = list.getHead();
     while (current != NULL) {
         stream << current->data;

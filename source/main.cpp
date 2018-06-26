@@ -1,8 +1,8 @@
 #include <iostream>
-#include "LinkedList.h"
+#include "cadena.h"
 
 int main(void) {
-    LinkedList list("Tiger was here.");
+    Cadena list("Tiger was here.");
 
     list.append(" Here too!");
 
@@ -10,7 +10,7 @@ int main(void) {
 
     std::cout << list[2] << std::endl;
 
-    LinkedList list2;
+    Cadena list2;
 
     std::cout << list2 << std::endl;
     std::cout << list2[0] << std::endl;
