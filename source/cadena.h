@@ -1,3 +1,5 @@
+// Part of Cadena by Tiger Sachse
+
 // Node class to build a dynamic, doubly-linked list.
 // The node pointers really should be private. I'll hopefully
 // change this soon.
@@ -15,6 +17,7 @@ class Cadena {
         Cadena(void);
         Cadena(char);
         Cadena(const std::string&);
+        Cadena(std::ifstream&, char = '\0');
         int getLength(void) const;
         Node* getHead(void) const;
         void prepend(char);
@@ -36,4 +39,5 @@ class Cadena {
         Node* findTail(Node*);
 };
 
+// Additional prototypes.
 std::ostream& operator<<(std::ostream&, const Cadena&);

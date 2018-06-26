@@ -1,4 +1,7 @@
+// Part of Cadena by Tiger Sachse
+
 #include <iostream>
+#include <fstream>
 #include "cadena.h"
 
 // Node constructor that initializes data, next, and prev.
@@ -26,6 +29,31 @@ Cadena::Cadena(char data) {
 Cadena::Cadena(const std::string& data) {
     initializeMembers();
     insert(data, 0);
+}
+
+// Constructor for a cadena taken from a filestream.
+Cadena::Cadena(std::ifstream& file, char newLineReplacement) {
+    initializeMembers();
+    
+    // Ensure the provided stream is open.
+    if (!file.is_open()) {
+        throw std::runtime_error("File is not open in Cadena().");
+    }
+
+    // Read each character in the stream into the cadena.
+    char buffer;
+    while (!file.eof()) {
+        file.get(buffer);
+       
+        // If the character is a newline character, append with
+        // its replacement. The default is the null character.
+        if (buffer == '\n') {
+            append(newLineReplacement);
+        }
+        else {
+            append(buffer);
+        }
+    }
 }
 
 // Return the length of the linked list.
@@ -62,6 +90,10 @@ void Cadena::append(const std::string& data) {
 
 // Insert a string into the list at the given index.
 void Cadena::insert(const std::string& data, int index) {
+    if (data.length() <= 0 || data[0] == '\0') {
+        return;
+    }
+    
     // If attempting to index in reverse (with negatives), then adjust
     // the index to the correct position. -1 results in an index at the
     // very end of the list in this implementation.
