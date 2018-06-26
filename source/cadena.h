@@ -1,6 +1,6 @@
 // Part of Cadena by Tiger Sachse
 
-// Node class to build a dynamic, doubly-linked list.
+// Node class to build a dynamic, doubly-linked list (later called a cadena).
 // The node pointers really should be private. I'll hopefully
 // change this soon.
 class Node {
