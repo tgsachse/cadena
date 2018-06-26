@@ -25,6 +25,8 @@ class Cadena {
         void append(char);
         void append(const std::string&);
         void insert(const std::string&, int);
+        bool search(char);
+        bool search(const std::string&);
         char& operator[](int);
         ~Cadena(void);
 

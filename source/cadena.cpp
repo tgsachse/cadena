@@ -127,6 +127,16 @@ void Cadena::insert(const std::string& data, int index) {
     length += data.length();
 }
 
+bool Cadena::search(char match) {
+    std::string str(1, match);
+
+    return search(str);
+}
+
+bool Cadena::search(const std::string& match) {
+    return false;
+}
+
 // Initialize members of new cadena.
 void Cadena::initializeMembers(void) {
     head = NULL;

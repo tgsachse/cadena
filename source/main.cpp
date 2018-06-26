@@ -38,7 +38,8 @@ int main(int argCount, char** argVector) {
 
     std::cout << "Cadena is: " << cadena << std::endl;
     std::cout << "Length is: " << cadena.getLength() << std::endl;
-    //std::cout << cadena.search(argVector[2]) << std::endl;
+    std::cout << "Cadena contains string " << argVector[2] << "? ";
+    std::cout << (cadena.search(argVector[2]) ? "true" : "false") << std::endl;
     
     return 0;
 }
