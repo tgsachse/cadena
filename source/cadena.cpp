@@ -11,12 +11,12 @@ Node::Node(char data, Node* next, Node* prev) {
     this->prev = prev;
 }
 
-// Constructor for an empty linked list.
+// Constructor for an empty cadena.
 Cadena::Cadena(void) {
     initializeMembers();
 }
 
-// Constructor for a linked list with an initial node.
+// Constructor for a cadena with an initial node.
 Cadena::Cadena(char data) {
     initializeMembers();
 
@@ -25,7 +25,7 @@ Cadena::Cadena(char data) {
     insert(str, 0);
 }
 
-// Constructor for a linked list with several nodes, pulled from data.
+// Constructor for a cadena with several nodes, pulled from data.
 Cadena::Cadena(const std::string& data) {
     initializeMembers();
     insert(data, 0);
@@ -56,39 +56,39 @@ Cadena::Cadena(std::ifstream& file, char newLineReplacement) {
     }
 }
 
-// Return the length of the linked list.
+// Return the length of the cadena.
 int Cadena::getLength(void) const {
     return length;
 }
 
-// Return the head of the linked list.
+// Return the head of the cadena.
 Node* Cadena::getHead(void) const {
     return head;
 }
 
-// Insert character at the beginning of the list.
+// Insert character at the beginning of the cadena.
 void Cadena::prepend(char data) {
     std::string str(1, data);
     insert(str, 0);
 }
 
-// Insert string at the beginning of the list.
+// Insert string at the beginning of the cadena.
 void Cadena::prepend(const std::string& data) {
     insert(data, 0);
 }
 
-// Insert character at the end of the list.
+// Insert character at the end of the cadena.
 void Cadena::append(char data) {
     std::string str(1, data);
     insert(str, length);
 }
 
-// Insert string at the end of the list.
+// Insert string at the end of the cadena.
 void Cadena::append(const std::string& data) {
     insert(data, length);
 }
 
-// Insert a string into the list at the given index.
+// Insert a string into the cadena at the given index.
 void Cadena::insert(const std::string& data, int index) {
     if (data.length() <= 0 || data[0] == '\0') {
         return;
@@ -96,23 +96,23 @@ void Cadena::insert(const std::string& data, int index) {
     
     // If attempting to index in reverse (with negatives), then adjust
     // the index to the correct position. -1 results in an index at the
-    // very end of the list in this implementation.
+    // very end of the cadena in this implementation.
     if (index < 0) {
         index += length + 1;
     }
     
-    // If the list is empty, create new nodes and set head and tail.
+    // If the cadena is empty, create new nodes and set head and tail.
     if (head == NULL) {
         head = generateNodes(data);
         tail = findTail(head);
     }
-    // If the data is being prepended to the list, then generate
+    // If the data is being prepended to the cadena, then generate
     // the nodes and change head.
     else if (index <= 0) {
         head = generateNodes(data, head);
     }
     // If the data is meant to be added to an index out of bounds,
-    // generate new nodes and append them to the list.
+    // generate new nodes and append them to the cadena.
     else if (index >= length) {
         tail->next = generateNodes(data);
         tail = findTail(tail);
@@ -127,14 +127,14 @@ void Cadena::insert(const std::string& data, int index) {
     length += data.length();
 }
 
-// Initialize members of new list.
+// Initialize members of new cadena.
 void Cadena::initializeMembers(void) {
     head = NULL;
     tail = NULL;
     length = 0;
 }
 
-// Get node at index in list.
+// Get node at index in cadena.
 Node* Cadena::getNode(int index) const {
     Node *current;
   
@@ -142,7 +142,7 @@ Node* Cadena::getNode(int index) const {
         throw std::runtime_error("Null pointer exception in getNode().");
     }
 
-    // Check if index is closer to the back of the list than the front.
+    // Check if index is closer to the back of the cadena than the front.
     if (index > length / 2) {
         int i = length;
         current = tail;
@@ -185,13 +185,13 @@ Node* Cadena::generateNodes(const std::string& data, Node* next) {
     return start;
 }
 
-// Hunt down the tail of the list. I realize this isn't optimal.
+// Hunt down the tail of the cadena. I realize this isn't optimal.
 Node* Cadena::findTail(Node* start) {
     if (start == NULL) {
         throw std::runtime_error("Null pointer exception in findTail().");
     }
    
-    // Iterate through the list to the end.
+    // Iterate through the cadena to the end.
     Node* current = start;
     while (current->next != NULL) {
         current = current->next;
@@ -200,7 +200,7 @@ Node* Cadena::findTail(Node* start) {
     return current;
 }
 
-// Allow [bracketed] indexing of list.
+// Allow [bracketed] indexing of cadena.
 char& Cadena::operator[](int index) {
     // Adjust negative index to corresponding positive index.
     if (index < 0) {
@@ -210,7 +210,7 @@ char& Cadena::operator[](int index) {
     return getNode(index)->data;
 }
 
-// Deconstructor of a linked list that destroys all the nodes in the list.
+// Deconstructor of a cadena that destroys all the nodes in the cadena.
 Cadena::~Cadena(void) {
     Node* next;
 
@@ -223,9 +223,9 @@ Cadena::~Cadena(void) {
     }
 }
 
-// Allow lists to be printed in a standard way.
-std::ostream& operator<<(std::ostream& stream, const Cadena& list) {
-    Node* current = list.getHead();
+// Allow cadenas to be printed in a standard way.
+std::ostream& operator<<(std::ostream& stream, const Cadena& cadena) {
+    Node* current = cadena.getHead();
     while (current != NULL) {
         stream << current->data;
         current = current->next;
