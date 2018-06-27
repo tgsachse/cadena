@@ -127,14 +127,90 @@ void Cadena::insert(const std::string& data, int index) {
     length += data.length();
 }
 
-bool Cadena::search(char match) {
-    std::string str(1, match);
+// Find a character in a cadena.
+int Cadena::search(char pattern) {
+    std::string str(1, pattern);
 
     return search(str);
 }
 
-bool Cadena::search(const std::string& match) {
-    return false;
+// Find a pattern in the cadena.
+int Cadena::search(const std::string& pattern) {
+    if (pattern.length() < 1 || pattern.length() > length) {
+        return 0;
+    }
+
+    int* pi = generatePiTable(pattern);
+
+    int j = 0;
+    int count = 0;
+    Node* current = head;
+    while (current != NULL) {
+        // Match as many characters as possible until the cadena terminates
+        // or all characters in the pattern have been matched.
+        while (current->data == pattern[j]) {
+            current = current->next;
+            j += 1;
+
+            if (current == NULL || j >= pattern.length()) {
+                break;
+            }
+        }
+
+        // These conditions occur after the above loop consumes all matching
+        // characters. At this point, the algorithm has either found a match,
+        // found a non-matching character, or reached the end of the cadena.
+        // If the pattern index j is at or beyond the length of the pattern,
+        // then the algorithm has found a match.
+        if (j >= pattern.length()) {
+            count++;
+            j = pi[j - 1];
+        }
+        else if (current == NULL) {
+            break;
+        }
+        // Else no match was found. If the pattern index j is zero, then the
+        // pattern is reset all the way to the beginning and the algorithm should
+        // move on to the next character in the cadena. Otherwise the algorithm should
+        // attempt to reset the pattern index to an index where it can start checking
+        // characters again, but not to zero (if possible). This index is specified
+        // in the pi table. See generatePiTable() for details.
+        else {
+            if (j == 0) {
+                current = current->next;
+            }
+            else {
+                j = pi[j - 1];
+            }
+        }
+    }
+    
+    delete []pi;
+
+    return count;
+}
+
+// Allow [bracketed] indexing of cadena.
+char& Cadena::operator[](int index) {
+    // Adjust negative index to corresponding positive index.
+    if (index < 0) {
+        index += length + 1;
+    }
+
+    return getNode(index)->data;
+}
+
+// Deconstructor of a cadena that destroys all the nodes in the cadena.
+Cadena::~Cadena(void) {
+    Node* next;
+
+    // Iterate through all the nodes, deleting them along the way.
+    Node* current = head;
+    while (current != NULL) {
+        next = current->next;
+        delete current;
+        current = next;
+    }
 }
 
 // Initialize members of new cadena.
@@ -210,27 +286,36 @@ Node* Cadena::findTail(Node* start) {
     return current;
 }
 
-// Allow [bracketed] indexing of cadena.
-char& Cadena::operator[](int index) {
-    // Adjust negative index to corresponding positive index.
-    if (index < 0) {
-        index += length + 1;
+// Generate a pi table from a pattern for use in the KMP search algorithm.
+int* Cadena::generatePiTable(const std::string& pattern) {
+    int* pi = new int[pattern.length()]();
+
+    int i = 1;
+    int length = 0;
+    // The values in the table describe the longest length of a suffix in
+    // the pattern at index i that is also a prefix. For example in the pattern
+    // 'aabaab' at index 4, the longest prefix that is also a suffix is 'aa' (realize
+    // this is for the subpattern 'aabaa'). The length of this prefix/suffix is 2, so
+    // that goes into the table at index 4. This is useful because when the KMP
+    // algorithm finds a mismatch, it can simply 'shift' the pattern up by the value
+    // in the pi table at the correct index without having to rescan characters that
+    // would ultimately end up matching again. It's quite difficult to explain in a
+    // comment with no pictures. :)
+    while (i < pattern.length()) {
+        if (pattern[i] == pattern[length]) {
+            length++;
+            pi[i] = length;
+            i++;
+        }
+        else if (length != 0) {
+            length = pi[length - 1];
+        }
+        else {
+            i++;
+        }
     }
 
-    return getNode(index)->data;
-}
-
-// Deconstructor of a cadena that destroys all the nodes in the cadena.
-Cadena::~Cadena(void) {
-    Node* next;
-
-    // Iterate through all the nodes, deleting them along the way.
-    Node* current = head;
-    while (current != NULL) {
-        next = current->next;
-        delete current;
-        current = next;
-    }
+    return pi;
 }
 
 // Allow cadenas to be printed in a standard way.

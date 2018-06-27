@@ -19,14 +19,14 @@ class Cadena {
         Cadena(const std::string&);
         Cadena(std::ifstream&, char = '\0');
         int getLength(void) const;
-        Node* getHead(void) const;
+        Node* getHead(void) const;//needed?
         void prepend(char);
         void prepend(const std::string&);
         void append(char);
         void append(const std::string&);
         void insert(const std::string&, int);
-        bool search(char);
-        bool search(const std::string&);
+        int search(char);
+        int search(const std::string&);
         char& operator[](int);
         ~Cadena(void);
 
@@ -39,6 +39,7 @@ class Cadena {
         Node* getNode(int) const;
         Node* generateNodes(const std::string&, Node* = NULL);
         Node* findTail(Node*);
+        int* generatePiTable(const std::string&);
 };
 
 // Additional prototypes.

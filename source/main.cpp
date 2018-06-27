@@ -6,7 +6,6 @@
 
 // Entry point to example program.
 int main(int argCount, char** argVector) {
-
     // If no file is provided, scream about it.
     if (argCount < 2) {
         std::cout << "ERROR: Missing file as first argument." << std::endl;
@@ -38,8 +37,8 @@ int main(int argCount, char** argVector) {
 
     std::cout << "Cadena is: " << cadena << std::endl;
     std::cout << "Length is: " << cadena.getLength() << std::endl;
-    std::cout << "Cadena contains string " << argVector[2] << "? ";
-    std::cout << (cadena.search(argVector[2]) ? "true" : "false") << std::endl;
+    std::cout << "Occurences of string " << argVector[2] << " in cadena: ";
+    std::cout << cadena.search(argVector[2]) << std::endl;
     
     return 0;
 }
