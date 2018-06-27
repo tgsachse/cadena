@@ -3,9 +3,12 @@ This small library provides the `Cadena` class, implemented using a doubly-linke
 - prepend
 - append
 - insert
-- delete
-- replace
-- search
+- delete†
+- replace†
+- search†
+
+
+*†coming soon!*
 
 # usage
 To download this program, clone this repository using `git` like so:
