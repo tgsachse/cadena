@@ -30,8 +30,8 @@ int main(int argCount, char** argVector) {
         return 0;
     }
 
-    // Initialize a new cadena from the file, replacing newlines with null characters.
-    Cadena cadena(inputFile, '\0');
+    // Initialize a new cadena from the input file, replacing newlines with spaces.
+    Cadena cadena(inputFile, ' ');
 
     inputFile.close();
 
