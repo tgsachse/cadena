@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "cadena.h"
 
 // Entry point to example program.

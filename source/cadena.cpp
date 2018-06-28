@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "cadena.h"
 
 // Node constructor that initializes data, next, and prev.
