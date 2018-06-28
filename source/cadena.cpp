@@ -143,17 +143,17 @@ int Cadena::search(const std::string& pattern) {
 
     int* pi = generatePiTable(pattern);
 
-    int j = 0;
+    int index = 0;
     int count = 0;
     Node* current = head;
     while (current != NULL) {
         // Match as many characters as possible until the cadena terminates
         // or all characters in the pattern have been matched.
-        while (current->data == pattern[j]) {
+        while (current->data == pattern[index]) {
             current = current->next;
-            j += 1;
+            index++;
 
-            if (current == NULL || j >= pattern.length()) {
+            if (current == NULL || index >= pattern.length()) {
                 break;
             }
         }
@@ -161,27 +161,27 @@ int Cadena::search(const std::string& pattern) {
         // These conditions occur after the above loop consumes all matching
         // characters. At this point, the algorithm has either found a match,
         // found a non-matching character, or reached the end of the cadena.
-        // If the pattern index j is at or beyond the length of the pattern,
+        // If the pattern index is at or beyond the length of the pattern,
         // then the algorithm has found a match.
-        if (j >= pattern.length()) {
+        if (index >= pattern.length()) {
             count++;
-            j = pi[j - 1];
+            index = pi[index - 1];
         }
         else if (current == NULL) {
             break;
         }
-        // Else no match was found. If the pattern index j is zero, then the
+        // Else no match was found. If the pattern index is zero, then the
         // pattern is reset all the way to the beginning and the algorithm should
         // move on to the next character in the cadena. Otherwise the algorithm should
         // attempt to reset the pattern index to an index where it can start checking
         // characters again, but not to zero (if possible). This index is specified
         // in the pi table. See generatePiTable() for details.
         else {
-            if (j == 0) {
+            if (index == 0) {
                 current = current->next;
             }
             else {
-                j = pi[j - 1];
+                index = pi[index - 1];
             }
         }
     }
