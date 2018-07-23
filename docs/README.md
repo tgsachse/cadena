@@ -1,14 +1,9 @@
 # cadena
-This small library provides the `Cadena` class, implemented using a doubly-linked list of characters. Cadenas support many operations:
+This small library provides the `Cadena` class, implemented using a doubly-linked list of characters. I wrote this library to learn more about objects in C++ and to learn the KMP algorithm. Cadenas support a handful of operations:
 - prepend
 - append
 - insert
-- delete†
-- replace†
 - search
-
-
-*†coming soon!*
 
 # usage
 To download this program, clone this repository using `git` like so:
@@ -31,8 +26,6 @@ Below is a table of space and runtime complexities for all operations:
 | Prepend      |        O(1)       |         O(1)         |        O(1)        |
 | Append       |        O(1)       |         O(1)         |        O(1)        |
 | Insert       |        O(1)       |         O(n)         |        O(n)        |
-| Delete       |        O(1)       |         O(n)         |        O(n)        |
-| Replace      |        O(k)       |         O(n+k)       |        O(n+k)      |
 | Search       |        O(n)       |         O(n)         |        O(n)        |
 | Destruction  |        O(n)       |         O(n)         |        O(n)        |
 
